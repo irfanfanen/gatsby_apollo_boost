@@ -16,7 +16,6 @@ const Index = () => {
 
   if (loading) return "loading...";
   if (error) return `error: ${error.message}`;
-
   return (
     <div>
       {data.author.map((author, index) => (

@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { useMutation } from "@apollo/react-hooks";
+import { useMutation, useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
 
 const ADD_TODO = gql`
     mutation($task: String!) {
-        insert_todos_onex(
+        insert_todos_one(
             object: {
                 task: $task,
                 completed: true
@@ -15,7 +15,9 @@ const ADD_TODO = gql`
             completed
         }
     }
-`
+`;
+
+
 
 export default () => {
     const [task, setTask] = useState("");
@@ -24,19 +26,10 @@ export default () => {
     const submitTask = () => {
         addTodo({variables: {task}});
         setTask("");
-
-        console.log('TT')
-        console.log(error.message)
-        if (loading){
-            console.log('loading')
-        }
-        if (data){
-            console.log('data')
-        }
-        // if (error){
-        //     console.log(error.message)
-        // }
     }
+
+    if (loading) return "loading...";
+    if (error) return `error: ${error.message}`;
   
     return (
         <div>
